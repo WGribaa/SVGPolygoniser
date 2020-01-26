@@ -136,7 +136,7 @@ class Polygoniser:
             for polygon in polygon_list:
                 if polygon.contains(point):
                     return k
-        if percent_impute is None or percent_impute == 0:
+        if percent_impute is None or percent_impute <= 0:
             return None
 
         # Getting the closest polygon from the point and its closest distance
@@ -149,7 +149,7 @@ class Polygoniser:
                     min_distance = distance
                     closest_polygon = k
         # Convert the distance into a percent of the picture's diagonal
-        diag = self.get_distance((self.data_box_[0], self.data_box_[1]), (self.data_box_[2], self.data_box_[3]))
+        diag = ((self.data_box_[2]-self.data_box_[0])**2+(self.data_box_[3]-self.data_box_[1])**2)**0.5
         return closest_polygon if min_distance <= percent_impute * diag / 100 else None
 
     def mapBelongings(self, x_series, y_series, in_view_box=False, percent_impute=None):

@@ -135,7 +135,7 @@ class Polygoniser:
             for polygon in polygon_list:
                 if polygon.contains_point(point):
                     return k
-        if percent_impute is None or percent_impute == 0:
+        if percent_impute is None or percent_impute <= 0:
             return None
 
         # Getting the closest polygon from the point and its closest distance
@@ -216,7 +216,7 @@ class Polygoniser:
         """
         l2 = Polygoniser.get_length_squared(point_a, point_b)
         if l2 == 0:
-            return Polygoniser.get_distance(point, point_a)
+            return min(Polygoniser.get_distance(point, point_a), Polygoniser.get_distance(point, point_b))
         return Polygoniser.get_distance(point, Polygoniser.get_projection(point, point_a, point_b))
 
     @staticmethod
