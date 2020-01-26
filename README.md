@@ -2,11 +2,13 @@
 A module that reads your SVG files (paths and vector graphic) and is able to categorize data given 2D coordinates.
 
 This project is but a draft, now. But it gives some features :
-- Read SVG file, extracts forms and tranforms them into matplotlib's paths.
+- Read SVG file, extracts forms and tranforms them into matplotlib's paths. IMPORTANT NOTE : I chose not to use any parser, because Python's XML Parsers are well known to have security flaws. I made a "handmade" reader which IS NOT a parser, to avoid that issue and make this module safe.
 - Transformation of coordinates (from a box to another)
 - Provides a method to categorize datas from a list or series.
 
-This project is currently stil private because the material provided is part of an evaluate ongoing project at the IA School (as part of the Data Science Master cursus).
+It now uses Shapely and is about four times faster. At the moment, two versions are available (SVGPolygoniser and SVGShapeliser), but they will soon be merged. 
+
+This project is currently stil private because the material provided is part of an ongoing project at the IA School (as part of the Data Science Master cursus).
 
 Incoming features :
 - Calculates and returns the center of each polygon.
