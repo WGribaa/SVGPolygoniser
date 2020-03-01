@@ -6,9 +6,9 @@ This project is but a draft, now. But it gives some features :
 - Transformation of coordinates (from a box to another)
 - Provides a method to categorize datas from a list or series.
 
-It now uses Shapely and is about four times faster. At the moment, two versions are available (SVGPolygoniser and SVGShapeliser), but they will soon be merged. 
+It now uses Shapely and is about four times faster. Thus two versions are available (SVGPolygoniser and SVGShapeliser). 
 
-This project is currently stil private because the material provided is part of an ongoing project at the IA School (as part of the Data Science Master cursus).
+This project was originally made as a tool to enhance the visualisation of an ongoing project at the IA School (as part of the Data Science Master cursus).
 
 Incoming features :
 - Calculates and returns the center of each polygon.
