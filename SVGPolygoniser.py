@@ -36,7 +36,7 @@ class Polygoniser:
         if isinstance(path_files, str):
             self.read_files(path_files)
         else:
-            raise TypeError("For now, SVGPolygoniser works for a signle SVG (with multiple paths) only.")
+            raise TypeError("For now, SVGPolygoniser works for a single SVG (with multiple paths) only.")
 
     def __repr__(self):
         keys = [k for k in self.polygons_.keys()]
@@ -109,7 +109,7 @@ class Polygoniser:
                 elif element.startswith("Z"):
                     current_polygon_list.append(mpath.Path(current_points))
                     current_points = []
-                elif re.match(r"\d+\.\d+,\d+.\d+", element):
+                elif re.match(r"\d+\.?\d*,\d+\.?\d*", element):
                     current_points.append(self.scale(tuple(map(float, element.split(",")))))
                 elif element.find("/>") != -1:
                     self.polygons_[current_id] = current_polygon_list
@@ -121,7 +121,7 @@ class Polygoniser:
     def findContainer(self, point, in_view_box=False, percent_impute=None):
         """
         Return the name of the polygon which contains the point.
-        Warning : it may produce an unpredictable return key if you the files previously fed into the constructor of the
+        Warning : it may produce an unpredictable return key if the files previously fed into the constructor of the
         class showed overlapping paths.
         :param in_view_box: Boolean that tells if the coordinates to be considered are the view_box's original ones.
         :param point: A tuple of of coordinates (x, y)
@@ -184,6 +184,16 @@ class Polygoniser:
             return point
         return target_box[0] + (point[0] / (init_box[2] - init_box[0]) * (target_box[2] - target_box[0])), \
             target_box[1] + (point[1] / ((init_box[3]) - init_box[1]) * (target_box[3] - target_box[1]))
+
+    def get_center(self, polygon_name):
+        if polygon_name not in self.polygons_:
+            raise ValueError("Polygon \'%s\' doesn't exist." % polygon_name)
+        mean_point = [0, 0]
+        for point in self.polygons_["polygon_name"]:
+            mean_point[0] += point[0]
+            mean_point[1] += point[1]
+        leng = len(self.polygons_)
+        return self.scale((mean_point[0] / leng, mean_point[1] / leng))
 
     @staticmethod
     def minimal_distance(point, path):
